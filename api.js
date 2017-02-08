@@ -1,63 +1,96 @@
 /*global $, document*/
 
-var articleId;
+var articleId, newPath, noSpacelinkTitle;
 $(document).ready(function() {
-    // $.get( 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnlimit=1', function() {
-    //   // $( '.result' ).html( data );
-    //
-    // }).done(function(result) {
-    //   console.log(result)
-    // })
+
+$('#Ready').click(function() {
+});
 
     articleId = $.ajax({
         url: 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnlimit=1&rnnamespace=0',
         type: 'GET',
         dataType: 'jsonp',
         data: {
-            // action: 'query',
-            // meta: 'userinfo',
-            // format: 'json',
             crossOrigin: true
-            // origin: 'https://wiki-game-40c87.firebaseapp.com/'
         },
         xhrFields: {
             withCredentials: true
         },
-        // dataType: 'json'
     }).fail( function(error) {
         console.log('Error:', error);
     }).then(function(data) {
-        console.log(data.query.random[0].id);
 
-        var id = data.query.random[0].id;
+        var queryId = data.query.random[0].id;
+        console.log(queryId);
 
-        var path = 'https://en.wikipedia.org/w/api.php?action=query&format=json&uselang=user&errorformat=plaintext&prop=links&list=&pageids=' + id + '&plnamespace=0&pllimit=1&pldir=descending';
-        console.log('path', path);
+        var path = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&pageids='+ queryId + '&plnamespace=0&pllimit=5&pldir=descending';
+
         var articleLinks = $.ajax({
             url: path,
             type: 'GET',
             dataType: 'jsonp',
             data: {
-                // action: 'query',
-                // meta: 'userinfo',
-                // format: 'json',
                 crossOrigin: true
-                // origin: 'https://wiki-game-40c87.firebaseapp.com/'
             },
             xhrFields: {
                 withCredentials: true
             },
-            // dataType: 'json'
-        }).done(function(data) {
-            console.log('data', data);
+        }).done(function(newData) {
+            console.log('newData', newData);
+            newLinks(newData);
         });
     });
 
-});
 
+
+function newLinks(data){
+
+    var id = Object.keys(data.query.pages)[0];
+    var links = data.query.pages[id].links;
+    console.log('linksss', links);
+
+
+   $(".coolGroup").empty();
+
+    for(var i = 0; i < links.length; i++){
+        var linkTitle = links[i].title;
+        newPath = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles='+ noSpacelinkTitle + '&plnamespace=0&pllimit=5&pldir=descending'
+        $('.coolGroup').append('<button href=' + newPath + '>' + linkTitle + '</button>');
+
+        noSpacelinkTitle = linkTitle.replace(/\s/g, '');
+
+
+        console.log('newPath', newPath);
+
+    }
+}
+
+$('.coolGroup').click(function(event){
+    event.preventDefault();
+    console.log('pie', $(event.target).attr('href'));
+
+
+    $.ajax({
+        url: $(event.target).attr('href'),
+        type: 'GET',
+        dataType: 'jsonp',
+        data: {
+            crossOrigin: true
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+    }).fail( function(error) {
+        console.log('Error:', error);
+    }).then(function(data) {
+        console.log(data);
+        newLinks(data);
+    });
+
+});
 //put this ajax request in own function, then loop through logic of 'is this hitler'
 
-
+});
 
 // Stopwatch
 
