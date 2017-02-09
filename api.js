@@ -2,6 +2,8 @@
 
 
 $(document).ready(function() {
+    stop = document.getElementById('stop');
+
 
 
 });
@@ -19,12 +21,12 @@ function getLinks(url) {
 
     function randomizeLinks(linksArray, numberOfLinks) {
 
-            var newLinks = [];
-            for (var i = 0; i < numberOfLinks; i++) {
-                var randomeNumber = Math.floor(Math.random() * linksArray.length);
-                newLinks.push(linksArray[randomeNumber].title)
-            }
-            return newLinks;
+        var newLinks = [];
+        for (var i = 0; i < numberOfLinks; i++) {
+            var randomeNumber = Math.floor(Math.random() * linksArray.length);
+            newLinks.push(linksArray[randomeNumber].title)
+        }
+        return newLinks;
     }
 
     $.ajax({
@@ -48,8 +50,8 @@ function getLinks(url) {
 
         switch (queryId) {
             case '2731583': //Hitler Id
-              randomizedLinks[swapIndex] = 'Amphetamine';
-              break;
+                randomizedLinks[swapIndex] = 'Amphetamine';
+                break;
             case '2504': //Amphetamine Id
                 randomizedLinks[swapIndex] = 'Benzoic acid';
                 break;
@@ -57,12 +59,15 @@ function getLinks(url) {
                 randomizedLinks[swapIndex] = 'Cat';
                 break;
         }
-        if(queryId === '6678'){
-           alert('youz a win guy!');
-        }else{
-           randomizedLinks.forEach(makeButtonLink);
+        if (queryId === '6678') {
+            alert('youz a win guy!');
+
+            location.reload();
+
+        } else {
+            randomizedLinks.forEach(makeButtonLink);
         }
-      });
+    });
 }
 
 
@@ -79,65 +84,38 @@ function init() {
 // // Stopwatch
 
 $('#start').click(function() {
+ $(this).prop('disabled', true);
+  var twoMinutes = 60 * 2,
+    display = $('#time');
 
-    init();
+  init();
 
-    var h1 = document.getElementsByTagName('h1')[0],
-        start = document.getElementById('start'),
-        stop = document.getElementById('stop'),
-        clear = document.getElementById('clear'),
-        seconds = 0,
-        minutes = 0,
-        hours = 0,
-        t;
+  startTimer(twoMinutes, display);
 
-    function add() {
-        seconds++;
-        if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
-            if (minutes >= 60) {
-                minutes = 0;
-                hours++;
-            }
-        }
+  // start = document.getElementById('sta
 
-        h1.textContent = (hours ? (hours > 9 ? hours : '0' + hours) : '00') + ':' + (minutes ? (minutes > 9 ? minutes : '0' + minutes) : '00') + ':' + (seconds > 9 ? seconds : '0' + seconds);
+  function startTimer(duration, display) {
+      var timer = duration,
+          minutes, seconds;
+          // setInterval();
+      setInterval(function() {
+          minutes = parseInt(timer / 60, 10);
+          seconds = parseInt(timer % 60, 10);
 
-        timer();
-    }
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          seconds = seconds < 10 ? '0' + seconds : seconds;
+          console.log(minutes);
+          console.log(seconds);
 
-    function timer() {
-        t = setTimeout(add, 1000);
+          display.text(minutes + ':' + seconds);
 
-    }
-    timer();
+          if (--timer < 0) {
+            alert('youz a Loser guy!');
+            location.reload();
+          }
+      }, 1000);
+  }
 
 
-    /* Start button */
-    start.onclick = timer;
-
-    /* Stop button */
-    stop.onclick = function() {
-        clearTimeout(t);
-    };
-
-    /* Clear button */
-    clear.onclick = function() {
-        h1.textContent = '00:00:00';
-        seconds = 0;
-        minutes = 0;
-        hours = 0;
-
-    };
-
-    //   console.log(t)
-    //
-    //   if(t=2){
-    //     $(alert('loser')).click(function() {
-    //     location.reload();
-    // });
-
-    //}
 
 });
