@@ -6,10 +6,7 @@ module.exports = {
     "extends": "eslint:recommended",
     "rules": {
         "no-console": ["error", { allow: ["log", "debug", "warn", "error"] }],
-        "indent": [
-            "error",
-            4
-        ],
+      
         "linebreak-style": [
             "error",
             "unix"
