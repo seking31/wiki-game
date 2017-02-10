@@ -26,13 +26,13 @@ var newColor = function (){
 function getLinks(url) {
 
     function makeButtonLink(linkTitle) {
-  
+
         let noSpacelinkTitle = linkTitle.replace(/\s/g, '+');
         let firstHalf = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles=';
         let secondHalf = '&plnamespace=0&pllimit=500&pltitles=&pldir=ascending';
         let newPath = firstHalf + noSpacelinkTitle + secondHalf;
         let color = newColor();
-        $('.link-btn-container').append('<button class="linkButton"' + ' href=' + newPath + '>' + linkTitle + '</button>');
+        $('#link-btn-container').append('<button class="linkButton"' + ' href=' + newPath + '>' + linkTitle + '</button>');
         $('.linkButton').css({backgroundColor: color, color:'white',fontSize:'20px'});
     }
 
