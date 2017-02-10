@@ -4,7 +4,7 @@ body {
 }
 
 #app {
-  font-size: 45px;
+  font-size: 49px;
 }
 
 #interface {
@@ -25,9 +25,10 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    color:white;
+    color:#164D51;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+
 }
 
 #link-btn-container {
@@ -47,11 +48,17 @@ body {
 }
 
 #start {
-
+  height:50px;
+  width:200px;
+  font-size:20px;
+  background-color:#164D51;
+-moz-border-radius:18px;
+-webkit-border-radius:18px;
 }
 
 #game {
  padding: 30px;
+
 }
 
 #game button {

@@ -63,7 +63,7 @@ function getLinks(url) {
 
         var queryId = Object.keys(data.query.pages)[0];
         var links = data.query.pages[queryId].links;
-        var randomizedLinks = randomizeLinks(links, 10);
+        var randomizedLinks = randomizeLinks(links, 3);
         var swapIndex = Math.floor(Math.random() * randomizedLinks.length);
 
         switch (queryId) {
