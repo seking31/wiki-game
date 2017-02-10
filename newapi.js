@@ -78,15 +78,19 @@ function getLinks(url) {
                 break;
         }
         if (queryId === '6678') {
-            alert('youz a win guy!');
+                $('.win-modal').modal();
 
-            location.reload();
+                // window.setTimeout(function(){
+                //   location.reload();
+                // }, 5000);
+
 
         } else {
             randomizedLinks.forEach(makeButtonLink);
         }
     });
 }
+
 
 $('#start').click(function() {
  $(this).prop('disabled', true);
@@ -113,8 +117,11 @@ startTimer(twoMinutes, display);
           display.text(minutes + ':' + seconds);
 
           if (--timer < 0) {
-            alert('youz a Loser guy!');
-            location.reload();
+            $('.loser-modal').modal();
+
+            window.setTimeout(function(){
+              location.reload();
+            }, 5000);
           }
       }, 1000);
   }
