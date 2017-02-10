@@ -9,15 +9,36 @@ $(document).ready(function() {
 });
 
 
+var counter = 0;
+var index = 0;
+var newColor = function (){
+  counter++;
+  console.log('counter', counter);
+  var colorArray=['#321008', '#e0a08e',  '#8f8e64',  '#af4618',  '#26251c', 'AF4618', '#d48639',  '#7b4222', '#b69049', '#d08272', '#4b413a']
+  if(counter % 3 === 0){
+    index++;
+  }
+  if(index >= colorArray.length){
+    index = 0;
+  }
+  return colorArray[index];
+};
+
+
 function getLinks(url) {
 
     function makeButtonLink(linkTitle) {
+
+        // let newClass = 'newButton' + counter;
         let noSpacelinkTitle = linkTitle.replace(/\s/g, '+');
         let firstHalf = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles=';
         let secondHalf = '&plnamespace=0&pllimit=500&pltitles=&pldir=ascending';
         let newPath = firstHalf + noSpacelinkTitle + secondHalf;
-        $('.linkButton').append('<button href=' + newPath + '>' + linkTitle + '</button>');
+        let color = newColor();
+        $('.link-btn-container').append('<button class="linkButton"' + ' href=' + newPath + '>' + linkTitle + '</button>');
+        $('.linkButton').css({backgroundColor: color, color:'white',fontSize:'20px'});
     }
+
 
     function randomizeLinks(linksArray, numberOfLinks) {
 
@@ -45,7 +66,7 @@ function getLinks(url) {
 
         var queryId = Object.keys(data.query.pages)[0];
         var links = data.query.pages[queryId].links;
-        var randomizedLinks = randomizeLinks(links, 3);
+        var randomizedLinks = randomizeLinks(links, 10);
         var swapIndex = Math.floor(Math.random() * randomizedLinks.length);
 
         switch (queryId) {
@@ -71,9 +92,12 @@ function getLinks(url) {
 }
 
 
-$('.linkButton').click(function(event) {
+$(document).on('click', '.linkButton', function(event) {
     event.preventDefault();
     getLinks($(event.target).attr('href'));
+
+    $(this).remove();
+
 });
 //get the link created by the switch
 function init() {
@@ -104,8 +128,7 @@ $('#start').click(function() {
 
           minutes = minutes < 10 ? '0' + minutes : minutes;
           seconds = seconds < 10 ? '0' + seconds : seconds;
-          console.log(minutes);
-          console.log(seconds);
+
 
           display.text(minutes + ':' + seconds);
 
