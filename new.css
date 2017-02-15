@@ -1,17 +1,9 @@
 body {
     background-image: url("back.jpg");
-
 }
 
 #app {
-  font-size: 45px;
-}
-
-#interface {
-    background-image: url("frame.png");
-    width: 1020px;
-    height: 870px;
-    margin: 0 auto;
+    font-size: 50px;
 }
 
 #header {
@@ -25,18 +17,17 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    color:#164D51;
+    color: #164D51;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     font-weight: bold;
-
 }
 
 #link-btn-container {
     position: relative;
     height: 500px;
     margin-top: 100px;
-    display: flex;
+    /*display: flex;*/
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
@@ -44,22 +35,36 @@ body {
     padding: 190px;
 }
 
-.timer {
-  margin:10px;
+#interface {
+    background-image: url("frame.png");
+    width: 1020px;
+    height: 870px;
+    margin: 0 auto;
 }
 
-#start {
-  height:40px;
-  width:200px;
-  font-size:20px;
-  background-color:#164D51;
--moz-border-radius:18px;
--webkit-border-radius:18px;
+#simp {
+    background-image: url("simp.jpg");
+    width: 630px;
+    height: 443px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.timer {
+    margin: 10px;
+}
+
+.start {
+    height: 35px;
+    width: 200px;
+    font-size: 17px;
+    background-color: #164D51;
+    /*-moz-border-radius:18px;
+-webkit-border-radius:18px;*/
 }
 
 #game {
- padding: 30px;
-
+    padding: 30px;
 }
 
 #game button {
