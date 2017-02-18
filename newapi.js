@@ -9,8 +9,7 @@ var counter = 0;
 var index = 0;
 var newColor = function() {
     counter++;
-    console.log('counter', counter);
-    var colorArray = ['#321008', '#e0a08e', '#8f8e64', '#af4618', '#26251c', '#AF4618', '#d48639', '#7b4222', '#b69049', '#d08272', '#4b413a']
+    var colorArray = ['#321008', '#e0a08e', '#8f8e64', '#af4618', '#26251c', '#AF4618', '#d48639', '#7b4222', '#b69049', '#d08272', '#4b413a'];
     if (counter % 3 === 0) {
         index++;
     }
@@ -20,32 +19,32 @@ var newColor = function() {
     return colorArray[index];
 };
 
+function makeButtonLink(linkTitle) {
+
+    let noSpacelinkTitle = linkTitle.replace(/\s/g, '+');
+    let firstHalf = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles=';
+    let secondHalf = '&plnamespace=0&pllimit=500&pltitles=&pldir=ascending';
+    let newPath = firstHalf + noSpacelinkTitle + secondHalf;
+    let color = newColor();
+    let newClass = 'colorClass' + counter;
+
+    $('#simp').append('<button class="linkButton ' + newClass + ' "  href=' + newPath + '>' + linkTitle + '</button>');
+    $('.' + newClass).css({
+        backgroundColor: color,
+        color: 'white',
+        fontSize: '20px'
+    });
+    return {title: linkTitle, path: newPath, class: newClass};
+}
+
 function getLinks(url) {
-
-    function makeButtonLink(linkTitle) {
-
-        let noSpacelinkTitle = linkTitle.replace(/\s/g, '+');
-        let firstHalf = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles=';
-        let secondHalf = '&plnamespace=0&pllimit=500&pltitles=&pldir=ascending';
-        let newPath = firstHalf + noSpacelinkTitle + secondHalf;
-        let color = newColor();
-        let newClass = "colorClass" + counter;
-        console.log(newClass);
-
-        $('#simp').append('<button class="linkButton ' + newClass + ' "  href=' + newPath + '>' + linkTitle + '</button>');
-        $('.' + newClass).css({
-            backgroundColor: color,
-            color: 'white',
-            fontSize: '20px'
-        });
-    }
 
     function randomizeLinks(linksArray, numberOfLinks) {
 
         var newLinks = [];
         for (var i = 0; i < numberOfLinks; i++) {
             var randomeNumber = Math.floor(Math.random() * linksArray.length);
-            newLinks.push(linksArray[randomeNumber].title)
+            newLinks.push(linksArray[randomeNumber].title);
         }
         return newLinks;
     }
@@ -68,48 +67,53 @@ function getLinks(url) {
             var links = data.query.pages[queryId].links;
             var randomizedLinks = randomizeLinks(links, 2);
             var swapIndex = Math.floor(Math.random() * randomizedLinks.length);
-            if (queryId === '2731583') {
+          
+            if (queryId === '2731583' || queryId === '2504') {
                 switch (queryId) {
                     case '2731583': //Hitler Id
                         randomizedLinks[swapIndex] = 'Amphetamine';
+                        console.log('1',queryId);
                         break;
                     case '2504': //Amphetamine Id
                         randomizedLinks[swapIndex] = 'Benzoic acid';
+                        console.log('2',queryId);
                         break;
                     case '4106': //Benzoic acid Id
                         randomizedLinks[swapIndex] = 'Cat';
                         break;
                 }
-            }else if (queryId === '307') {
+            } else if (queryId === '21473' || queryId === '200646') {
                 switch (queryId) {
-                    case '307': //Abraham Lincoln Id
-                        randomizedLinks[swapIndex] = 'Kentucky';
-                        console.log(queryId)
+                    case '21473': //Tesla
+                        randomizedLinks[swapIndex] = 'Selective breeding';
+                        console.log('307',queryId);
                         break;
-                    case '33702': //Kentucky Id
-                        randomizedLinks[swapIndex] = 'Gray wolf';
-                          console.log(queryId);
-                        break;
-                    case '4106': //Gray_wolf Id
+                    case '200646': //Selective Breeding
                         randomizedLinks[swapIndex] = 'Cat';
+                        console.log('4',queryId);
                         break;
                 }
-            } else {
+            } else if(queryId === '65015' || queryId === '19828134' || queryId === '142586'){
                 switch (queryId) {
                     case '65015': //Swamp Thing
                         randomizedLinks[swapIndex] = 'Plant';
+                        console.log('1',queryId);
                         break;
                     case '19828134': //plant Id
                         randomizedLinks[swapIndex] = 'Domestication';
+                        console.log('2',queryId);
                         break;
                     case '142586': //Domestication Id
                         randomizedLinks[swapIndex] = 'Cat';
                         break;
+                      }
+                  } else {
+                  console.log('err');
                 }
-              }if (queryId === '6678') {
+            if (queryId === '6678') {
                     $('.win-modal').modal();
 
-                } else {
+          } else {
                     randomizedLinks.forEach(makeButtonLink);
                 }
             });
@@ -129,7 +133,7 @@ function getLinks(url) {
           getLinks('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles=Swamp+Thing&plnamespace=0&pllimit=500&pltitles=&pldir=ascending');
           startTimer(twoMinutes, display);
         }else{
-          getLinks('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles=Abraham+Lincoln&plnamespace=0&pllimit=500&pltitles=&pldir=ascending');
+          getLinks('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&titles=Nikola+Tesla&plnamespace=0&pllimit=500&pltitles=&pldir=ascending');
           startTimer(twoMinutes, display);
         }
 
