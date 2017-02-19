@@ -67,8 +67,8 @@ function getLinks(url) {
             var links = data.query.pages[queryId].links;
             var randomizedLinks = randomizeLinks(links, 2);
             var swapIndex = Math.floor(Math.random() * randomizedLinks.length);
-          
-            if (queryId === '2731583' || queryId === '2504') {
+
+            if (queryId === '2731583' || queryId === '2504' || queryId === '4106') {
                 switch (queryId) {
                     case '2731583': //Hitler Id
                         randomizedLinks[swapIndex] = 'Amphetamine';
@@ -113,6 +113,11 @@ function getLinks(url) {
             if (queryId === '6678') {
                     $('.win-modal').modal();
 
+                    window.setTimeout(function() {
+                        location.reload();
+                    }, 5000);
+
+
           } else {
                     randomizedLinks.forEach(makeButtonLink);
                 }
@@ -122,7 +127,7 @@ function getLinks(url) {
     $('.start').click(function(e) {
       console.log(e.target.id);
         $(this).prop('disabled', true);
-        var twoMinutes = 60 * 2,
+        var twoMinutes = 30 * 2,
             display = $('#time');
         $('.start').remove();
 

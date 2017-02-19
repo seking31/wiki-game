@@ -3,7 +3,7 @@ body {
 }
 
 #app {
-    font-size: 50px;
+    font-size: 59px;
 }
 
 #header {
@@ -17,8 +17,8 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    color: #164D51;
-    -webkit-text-stroke-width: 1px;
+    color: white;
+    -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
     font-weight: bold;
 }
